@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autobot Counter</title>
+  </head>
+  <body>
+    <h1>Autobot Count: <span id="autobot-count">0</span></h1>
+    <!-- Include Socket.IO client from CDN -->
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+    <script>
+      const socket = io("http://localhost:8000"); // Ensure this matches your server's URL and port
+
+      socket.on("connect", () => {
+        console.log("Connected to server");
+      });
+
+      socket.on("autobotCount", (count) => {
+        document.getElementById("autobot-count").innerText = count;
+      });
+
+      socket.on("disconnect", () => {
+        console.log("Disconnected from server");
+      });
+    </script>
+  </body>
+</html>
